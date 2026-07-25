@@ -1,0 +1,30 @@
+project_name = "voidloop"
+environment  = "prod"
+aws_region   = "guess"
+
+lambda_image_tag    = "v0.1.0"
+lambda_architecture = "x86_64"
+lambda_memory_size  = 1024
+lambda_timeout      = 30
+log_retention_days  = 30
+
+api_domain_name         = ""
+api_acm_certificate_arn = ""
+
+allowed_hosts        = "guess"
+cors_allowed_origins = "guess"
+
+django_secret_key = "guess-if-you-can"
+database_url      = "guess-if-you-can"
+
+jwt_access_token_lifetime_minutes = 60
+jwt_refresh_token_lifetime_days   = 7
+
+github_repository = "codevoid048/voidloop"
+
+# Set false and fill github_oidc_provider_arn if this AWS account already has
+# the token.actions.githubusercontent.com OIDC provider (e.g. from another stack).
+create_github_oidc_provider = true
+# github_oidc_provider_arn = "arn:aws:iam::ACCOUNT_ID:oidc-provider/token.actions.githubusercontent.com"
+
+extra_lambda_env = {}

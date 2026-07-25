@@ -1,0 +1,32 @@
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+terraform.tfvars
+*.auto.tfvars
+*.auto.tfvars.json
+
+# Terraform execution plans
+tfplan
+*.tfplan
+
+# IDE and system files
+.DS_Store
+*.swp
+*.swo
+*~
+.idea/
+
+# Environment files
+.env
+.env.local
+.env.*.local
+.deploy.env
+
+# Backup files
+*.backup
+*.orig

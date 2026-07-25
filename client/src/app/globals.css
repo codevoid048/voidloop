@@ -1,0 +1,168 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@plugin "tailwindcss-animate";
+@plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  /* Brutalist/Anime Theme (Excalidraw inspired) */
+  --background: hsl(40 20% 98%); /* Soft paper-like background */
+  --foreground: hsl(0 0% 0%);
+
+  --primary: hsl(262 83% 58%); /* Anime Purple */
+  --primary-foreground: hsl(0 0% 100%);
+
+  --secondary: hsl(41 95% 61%); /* Playful Banana Yellow */
+  --secondary-foreground: hsl(0 0% 0%);
+
+  --muted: hsl(0 0% 92%);
+  --muted-foreground: hsl(0 0% 30%);
+
+  --accent: hsl(190 90% 70%); /* Sky Blue */
+  --accent-foreground: hsl(0 0% 0%);
+
+  --destructive: hsl(0 84% 60%);
+  --destructive-foreground: hsl(0 0% 100%);
+
+  --border: hsl(0 0% 0%); /* Bold solid borders */
+  --input: hsl(0 0% 0%);
+  --ring: hsl(262 83% 58%);
+
+  --radius: 0.5rem;
+
+  --shadow-brutalist: 4px 4px 0px 0px hsl(0 0% 0%);
+  --shadow-brutalist-md: 6px 6px 0px 0px hsl(0 0% 0%);
+  --shadow-brutalist-lg: 8px 8px 0px 0px hsl(0 0% 0%);
+
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(0 0% 0%);
+
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(0 0% 0%);
+
+  --chart-1: hsl(262 83% 58%);
+  --chart-2: hsl(190 90% 70%);
+  --chart-3: hsl(41 95% 61%);
+  --chart-4: hsl(142 76% 36%);
+  --chart-5: hsl(346.8 77.2% 49.8%);
+
+  --sidebar: hsl(40 20% 96%);
+  --sidebar-foreground: hsl(0 0% 0%);
+  --sidebar-primary: hsl(262 83% 58%);
+  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --sidebar-accent: hsl(190 90% 70%);
+  --sidebar-accent-foreground: hsl(0 0% 0%);
+  --sidebar-border: hsl(0 0% 0%);
+  --sidebar-ring: hsl(262 83% 58%);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --shadow-brutalist: var(--shadow-brutalist);
+  --shadow-brutalist-md: var(--shadow-brutalist-md);
+  --shadow-brutalist-lg: var(--shadow-brutalist-lg);
+
+  /* Fonts */
+  --font-sans: var(--font-sans);
+  --font-heading: var(--font-sans);
+
+  --radius-lg: var(--radius);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-sm: calc(var(--radius) - 4px);
+  
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+    @apply border-border outline-ring/50;
+  }
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-sans font-black tracking-tight;
+  }
+  html {
+    @apply font-sans;
+  }
+}
+
+.dark {
+  --background: hsl(0 0% 10%); /* Deep charcoal */
+  --foreground: hsl(0 0% 96%);
+
+  --primary: hsl(262 83% 68%); /* Bright cartoon violet */
+  --primary-foreground: hsl(0 0% 0%);
+
+  --secondary: hsl(41 95% 61%);
+  --secondary-foreground: hsl(0 0% 0%);
+
+  --muted: hsl(0 0% 18%);
+  --muted-foreground: hsl(0 0% 70%);
+
+  --accent: hsl(190 90% 70%);
+  --accent-foreground: hsl(0 0% 0%);
+
+  --destructive: hsl(0 84% 60%);
+  --destructive-foreground: hsl(0 0% 100%);
+
+  --border: hsl(0 0% 96%); /* Light borders in dark mode */
+  --input: hsl(0 0% 18%);
+  --ring: hsl(262 83% 68%);
+
+  --shadow-brutalist: 4px 4px 0px 0px hsl(0 0% 96%);
+  --shadow-brutalist-md: 6px 6px 0px 0px hsl(0 0% 96%);
+  --shadow-brutalist-lg: 8px 8px 0px 0px hsl(0 0% 96%);
+
+  --card: hsl(0 0% 13%);
+  --card-foreground: hsl(0 0% 96%);
+
+  --popover: hsl(0 0% 13%);
+  --popover-foreground: hsl(0 0% 96%);
+}

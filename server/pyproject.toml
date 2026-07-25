@@ -1,0 +1,26 @@
+[project]
+name = "voidloop"
+version = "0.1.0"
+description = "Void Loop - Habits, tasks, notes — your daily loop"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "boto3>=1.43.34",
+    "cryptography>=49.0.0",
+    "dj-database-url>=3.1.2",
+    "django>=6.0.6",
+    "django-cors-headers>=4.9.0",
+    "django-ninja>=1.6.2",
+    "django-ninja-jwt>=5.4.4",
+    "django-storages>=1.14.6",
+    "email-validator>=2.3.0",
+    "gunicorn>=26.0.0",
+    "mangum>=0.21.0",
+    "phonenumbers>=9.0.32",
+    "pillow>=12.2.0",
+    "psycopg2-binary>=2.9.12",
+    "pydantic>=2.13.4",
+    "pydantic-settings>=2.14.2",
+    "requests>=2.34.2",
+    "uvicorn>=0.49.0",
+]
