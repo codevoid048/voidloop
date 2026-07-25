@@ -1,6 +1,9 @@
 locals {
   name_prefix = "${var.project_name}-${var.environment}"
 
+  github_owner = split("/", var.github_repository)[0]
+  github_repo  = split("/", var.github_repository)[1]
+
   common_tags = merge(
     {
       Project     = var.project_name
