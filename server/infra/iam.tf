@@ -79,12 +79,13 @@ data "aws_iam_policy_document" "github_actions_assume" {
       values   = ["sts.amazonaws.com"]
     }
 
+    # Must match GitHub's exact owner/repo casing. Prefer repo-wide StringLike so
+    # push, workflow_dispatch, and environment jobs all work for this monorepo.
     condition {
       test     = "StringLike"
       variable = "token.actions.githubusercontent.com:sub"
       values = [
-        "repo:${var.github_repository}:ref:refs/heads/main",
-        "repo:${var.github_repository}:environment:prod",
+        "repo:${var.github_repository}:*",
       ]
     }
   }

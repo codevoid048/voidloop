@@ -37,17 +37,16 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    # OIDC trust is limited to refs/heads/main (see infra IAM role).
     if: github.ref == 'refs/heads/main'
     timeout-minutes: 45
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
       - name: Configure AWS credentials (OIDC)
-        uses: aws-actions/configure-aws-credentials@v4
+        uses: aws-actions/configure-aws-credentials@v6
         with:
           role-to-assume: ${{ secrets.AWS_ROLE_ARN }}
           aws-region: ${{ env.AWS_REGION }}
