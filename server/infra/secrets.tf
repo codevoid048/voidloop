@@ -11,3 +11,10 @@ resource "aws_ssm_parameter" "database_url" {
   type        = "SecureString"
   value       = var.database_url
 }
+
+resource "aws_ssm_parameter" "cloudflare_turnstile_secret_key" {
+  name        = "/${var.project_name}/${var.environment}/cloudflare_turnstile_secret_key"
+  description = "Cloudflare Turnstile secret key for auth siteverify"
+  type        = "SecureString"
+  value       = var.cloudflare_turnstile_secret_key
+}

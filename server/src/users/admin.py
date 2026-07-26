@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-from .models import User
+from .models import Invite, User
 
 
 @admin.register(User)
@@ -75,3 +75,21 @@ class UserAdmin(BaseUserAdmin):
         "date_joined",
         "last_login",
     ]
+
+
+@admin.register(Invite)
+class InviteAdmin(admin.ModelAdmin):
+    list_display = [
+        "id",
+        "email",
+        "created_by",
+        "expires_at",
+        "uses_count",
+        "max_uses",
+        "revoked_at",
+        "created_at",
+    ]
+    list_filter = ["revoked_at", "expires_at", "created_at"]
+    search_fields = ["email", "token"]
+    readonly_fields = ["token", "uses_count", "accepted_by", "created_at", "updated_at"]
+    raw_id_fields = ["created_by", "accepted_by"]

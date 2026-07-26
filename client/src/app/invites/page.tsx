@@ -1,22 +1,41 @@
 "use client"
 
 import Link from "next/link"
-import { ArrowLeft, CalendarDays, LogOut } from "lucide-react"
+import { useEffect } from "react"
+import { ArrowLeft, LogOut, MailPlus } from "lucide-react"
+import { useRouter } from "next/navigation"
 import { useState } from "react"
 import { RequireAuth } from "@/components/auth/RequireAuth"
-import { StaffInvitesNavButton } from "@/components/auth/StaffInvitesNavButton"
-import { TasksPanel } from "@/components/tasks/TasksPanel"
+import { InvitesPanel } from "@/components/invites/InvitesPanel"
 import { Button } from "@/components/ui/button"
 import { useAuthStore } from "@/stores/useAuthStore"
+import { Loader2 } from "lucide-react"
 
-function TasksPageContent() {
+function InvitesPageContent() {
+  const router = useRouter()
   const user = useAuthStore((state) => state.user)
+  const isHydrated = useAuthStore((state) => state.isHydrated)
   const logout = useAuthStore((state) => state.logout)
   const [isLoggingOut, setIsLoggingOut] = useState(false)
+
+  useEffect(() => {
+    if (!isHydrated || !user) return
+    if (!user.is_staff) {
+      router.replace("/today")
+    }
+  }, [isHydrated, user, router])
 
   const handleLogout = async () => {
     setIsLoggingOut(true)
     await logout()
+  }
+
+  if (!user?.is_staff) {
+    return (
+      <div className="flex min-h-screen items-center justify-center">
+        <Loader2 className="size-8 animate-spin text-primary" />
+      </div>
+    )
   }
 
   return (
@@ -31,29 +50,20 @@ function TasksPageContent() {
               </Link>
             </Button>
             <h1 className="flex items-center gap-2 text-3xl font-black tracking-tight">
-              <CalendarDays className="size-7 text-primary" />
-              Tasks
+              <MailPlus className="size-7 text-primary" />
+              Invites
             </h1>
             <p className="text-sm font-medium text-muted-foreground">
-              {user?.name || user?.username
-                ? `Daily plan for ${user.name || user.username}`
-                : "Daily tasks and schedule"}
+              Create invite links and share them manually.
             </p>
           </div>
-          <div className="flex items-center gap-2">
-            <Button asChild variant="default">
+          <div className="flex flex-wrap items-center gap-2">
+            <Button asChild variant="secondary">
               <Link href="/today">Today</Link>
             </Button>
             <Button asChild variant="secondary">
               <Link href="/dashboard">Dashboard</Link>
             </Button>
-            <Button asChild variant="secondary">
-              <Link href="/habits">Habits</Link>
-            </Button>
-            <Button asChild variant="secondary">
-              <Link href="/notes">Notes</Link>
-            </Button>
-            <StaffInvitesNavButton />
             <Button
               variant="outline"
               onClick={handleLogout}
@@ -65,16 +75,16 @@ function TasksPageContent() {
           </div>
         </header>
 
-        <TasksPanel />
+        <InvitesPanel />
       </div>
     </div>
   )
 }
 
-export default function TasksPage() {
+export default function InvitesPage() {
   return (
     <RequireAuth>
-      <TasksPageContent />
+      <InvitesPageContent />
     </RequireAuth>
   )
 }

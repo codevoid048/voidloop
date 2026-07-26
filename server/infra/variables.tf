@@ -111,6 +111,17 @@ variable "database_url" {
   }
 }
 
+variable "cloudflare_turnstile_secret_key" {
+  description = "Cloudflare Turnstile secret key (stored in SSM by Terraform, injected into Lambda)."
+  type        = string
+  sensitive   = true
+
+  validation {
+    condition     = length(trimspace(var.cloudflare_turnstile_secret_key)) > 0
+    error_message = "cloudflare_turnstile_secret_key must be set in terraform.tfvars."
+  }
+}
+
 variable "jwt_access_token_lifetime_minutes" {
   description = "JWT access token lifetime in minutes."
   type        = number

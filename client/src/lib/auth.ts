@@ -6,6 +6,7 @@ export interface UserProfile {
   username: string
   name: string
   is_active: boolean
+  is_staff: boolean
 }
 
 export interface AuthTokens {
@@ -16,7 +17,7 @@ export interface AuthTokens {
 const TOKEN_KEY = "auth_tokens"
 const USER_KEY = "auth_user"
 
-const AUTH_PAGES = ["/login"]
+const AUTH_PAGES = ["/login", "/register"]
 
 export class AuthService {
   static setTokens(tokens: AuthTokens): void {

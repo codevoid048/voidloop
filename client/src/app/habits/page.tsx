@@ -4,6 +4,7 @@ import Link from "next/link"
 import { ArrowLeft, LogOut, Sparkles } from "lucide-react"
 import { useState } from "react"
 import { RequireAuth } from "@/components/auth/RequireAuth"
+import { StaffInvitesNavButton } from "@/components/auth/StaffInvitesNavButton"
 import { HabitsPanel } from "@/components/habits/HabitsPanel"
 import { Button } from "@/components/ui/button"
 import { useAuthStore } from "@/stores/useAuthStore"
@@ -52,6 +53,7 @@ function HabitsPageContent() {
             <Button asChild variant="secondary">
               <Link href="/notes">Notes</Link>
             </Button>
+            <StaffInvitesNavButton />
             <Button
               variant="outline"
               onClick={handleLogout}

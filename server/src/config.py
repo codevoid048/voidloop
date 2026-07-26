@@ -85,6 +85,19 @@ class JWTConfig(BaseSettings):
         return timedelta(days=self.refresh_token_lifetime_days)
 
 
+class TurnstileConfig(BaseSettings):
+    secret_key: str = Field(default="", alias="CLOUDFLARE_TURNSTILE_SECRET_KEY")
+    enabled: Optional[bool] = Field(default=None, alias="TURNSTILE_ENABLED")
+
+    model_config = SettingsConfigDict(env_file=".env", extra="ignore")
+
+    @property
+    def is_enabled(self) -> bool:
+        if self.enabled is not None:
+            return self.enabled
+        return bool(self.secret_key.strip())
+
+
 class AppConfig(BaseSettings):
     debug: bool = Field(default=True, alias="DEBUG")
     secret_key: str = Field(
@@ -102,6 +115,7 @@ class AppConfig(BaseSettings):
     db: DatabaseConfig = DatabaseConfig()
     aws: AWSConfig = AWSConfig()
     jwt: JWTConfig = JWTConfig()
+    turnstile: TurnstileConfig = TurnstileConfig()
 
     model_config = SettingsConfigDict(env_file=".env", extra="ignore")
 

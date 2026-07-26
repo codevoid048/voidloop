@@ -11,6 +11,8 @@ import { useAuthStore } from "@/stores/useAuthStore"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { PasswordInput } from "@/components/auth/PasswordInput"
+import { TurnstileField } from "@/components/auth/TurnstileField"
 
 const loginSchema = z.object({
   email: z.string().min(1, "Email or username is required"),
@@ -31,6 +33,8 @@ export function LoginForm() {
   const searchParams = useSearchParams()
   const login = useAuthStore((state) => state.login)
   const [bannerMessage, setBannerMessage] = useState<string | null>(null)
+  const [turnstileToken, setTurnstileToken] = useState("")
+  const [turnstileKey, setTurnstileKey] = useState(0)
 
   const {
     register,
@@ -51,12 +55,21 @@ export function LoginForm() {
     },
     onError: (error) => {
       setBannerMessage(getApiErrorMessage(error, "Invalid credentials"))
+      setTurnstileToken("")
+      setTurnstileKey((key) => key + 1)
     },
   })
 
   const onSubmit = (values: LoginFormValues) => {
+    if (!turnstileToken) {
+      setBannerMessage("Please complete the security check")
+      return
+    }
     setBannerMessage(null)
-    mutation.mutate(values)
+    mutation.mutate({
+      ...values,
+      cf_turnstile_token: turnstileToken,
+    })
   }
 
   return (
@@ -80,9 +93,8 @@ export function LoginForm() {
 
       <div className="space-y-2">
         <Label htmlFor="password">Password</Label>
-        <Input
+        <PasswordInput
           id="password"
-          type="password"
           autoComplete="current-password"
           placeholder="••••••••"
           aria-invalid={!!errors.password}
@@ -95,13 +107,19 @@ export function LoginForm() {
         ) : null}
       </div>
 
+      <TurnstileField key={turnstileKey} onTokenChange={setTurnstileToken} />
+
       {bannerMessage ? (
         <p className="rounded-md border-2 border-destructive bg-destructive/10 px-3 py-2 text-xs font-bold text-destructive">
           {bannerMessage}
         </p>
       ) : null}
 
-      <Button type="submit" className="w-full" disabled={mutation.isPending}>
+      <Button
+        type="submit"
+        className="w-full"
+        disabled={mutation.isPending || !turnstileToken}
+      >
         {mutation.isPending ? "Signing in..." : "Sign in"}
       </Button>
     </form>

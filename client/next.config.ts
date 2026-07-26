@@ -28,17 +28,17 @@ const csp = [
   "object-src 'none'",
   "frame-ancestors 'none'",
   "form-action 'self'",
-  `script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com`,
+  `script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://challenges.cloudflare.com`,
   "worker-src 'self' blob:",
   "style-src 'self' 'unsafe-inline'",
   "font-src 'self' data:",
-  `img-src 'self' data: blob: https://images.unsplash.com https://www.googletagmanager.com https://www.google-analytics.com ${
+  `img-src 'self' data: blob: https://images.unsplash.com https://www.googletagmanager.com https://www.google-analytics.com https://challenges.cloudflare.com ${
     !isProd ? "http://localhost:8000 http://127.0.0.1:8000" : ""
   }`,
-  `connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com ${
+  `connect-src 'self' https://www.googletagmanager.com https://www.google-analytics.com https://challenges.cloudflare.com ${
     !isProd ? "http://localhost:8000 http://127.0.0.1:8000" : ""
   }`,
-  "frame-src 'self' https://www.googletagmanager.com https://www.google.com",
+  "frame-src 'self' https://www.googletagmanager.com https://www.google.com https://challenges.cloudflare.com",
   ...(isProd ? ["upgrade-insecure-requests"] : []),
 ]
   .join("; ")
@@ -94,11 +94,6 @@ const nextConfig: NextConfig = {
         has: [{ type: "host", value: "www.voidloop.williamkeri.com" }],
         destination: "https://voidloop.williamkeri.com/:path*",
         permanent: true,
-      },
-      {
-        source: "/register",
-        destination: "/login",
-        permanent: false,
       },
     ];
   },

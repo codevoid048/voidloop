@@ -4,6 +4,7 @@ import Link from "next/link"
 import { ArrowLeft, ChartColumn, LogOut } from "lucide-react"
 import { useState } from "react"
 import { RequireAuth } from "@/components/auth/RequireAuth"
+import { StaffInvitesNavButton } from "@/components/auth/StaffInvitesNavButton"
 import { DashboardPanel } from "@/components/dashboard/DashboardPanel"
 import { Button } from "@/components/ui/button"
 import { useAuthStore } from "@/stores/useAuthStore"
@@ -52,6 +53,7 @@ function DashboardPageContent() {
             <Button asChild variant="secondary">
               <Link href="/notes">Notes</Link>
             </Button>
+            <StaffInvitesNavButton />
             <Button
               variant="outline"
               onClick={handleLogout}

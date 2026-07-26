@@ -12,7 +12,7 @@ from _sdk.ninja_handlers import (
     generic_error_handler,
 )
 
-from users.api import auth_router
+from users.api import auth_router, invites_router
 from habits.api import habits_router
 from tasks.api import tasks_router
 from notes.api import notes_router
@@ -41,6 +41,7 @@ def health_check(request):
 
 # Register app routers
 api.add_router("/auth", auth_router)
+api.add_router("/invites", invites_router)
 api.add_router("/habits", habits_router)
 api.add_router("/tasks", tasks_router)
 api.add_router("/notes", notes_router)

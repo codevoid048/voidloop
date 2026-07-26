@@ -1,5 +1,5 @@
 import { create } from "zustand"
-import { authApi, type LoginRequest } from "@/lib/api/auth"
+import { authApi, type LoginRequest, type RegisterRequest } from "@/lib/api/auth"
 import { AuthService, type UserProfile } from "@/lib/auth"
 
 interface AuthState {
@@ -9,6 +9,7 @@ interface AuthState {
   isHydrated: boolean
 
   login: (credentials: LoginRequest) => Promise<void>
+  register: (payload: RegisterRequest) => Promise<void>
   logout: () => Promise<void>
   checkAuthStatus: () => Promise<void>
   setHydrated: () => void
@@ -32,6 +33,21 @@ export const useAuthStore = create<AuthState>((set, get) => ({
 
   login: async (credentials) => {
     const response = await authApi.login(credentials)
+    AuthService.setTokens({
+      access: response.access,
+      refresh: response.refresh,
+    })
+    AuthService.setUser(response.user)
+    set({
+      user: response.user,
+      isAuthenticated: true,
+      isLoading: false,
+    })
+    AuthService.emitAuthChange()
+  },
+
+  register: async (payload) => {
+    const response = await authApi.register(payload)
     AuthService.setTokens({
       access: response.access,
       refresh: response.refresh,

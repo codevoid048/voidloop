@@ -4,6 +4,7 @@ import Link from "next/link"
 import { ArrowLeft, LogOut, NotebookPen } from "lucide-react"
 import { useState } from "react"
 import { RequireAuth } from "@/components/auth/RequireAuth"
+import { StaffInvitesNavButton } from "@/components/auth/StaffInvitesNavButton"
 import { NotesPanel } from "@/components/notes/NotesPanel"
 import { Button } from "@/components/ui/button"
 import { useAuthStore } from "@/stores/useAuthStore"
@@ -52,6 +53,7 @@ function NotesPageContent() {
             <Button asChild variant="secondary" size="sm">
               <Link href="/tasks">Tasks</Link>
             </Button>
+            <StaffInvitesNavButton />
             <Button
               variant="outline"
               size="sm"

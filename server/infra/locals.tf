@@ -29,6 +29,8 @@ locals {
       DATABASE_URL                      = aws_ssm_parameter.database_url.value
       JWT_ACCESS_TOKEN_LIFETIME_MINUTES = tostring(var.jwt_access_token_lifetime_minutes)
       JWT_REFRESH_TOKEN_LIFETIME_DAYS   = tostring(var.jwt_refresh_token_lifetime_days)
+      CLOUDFLARE_TURNSTILE_SECRET_KEY   = aws_ssm_parameter.cloudflare_turnstile_secret_key.value
+      TURNSTILE_ENABLED                 = "true"
       AWS__USE_S3                       = "False"
       AWS__REGION                       = var.aws_region
       API_GATEWAY_BASE_PATH             = "/${var.api_stage_name}"
